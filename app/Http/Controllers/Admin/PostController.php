@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,7 +38,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validazione
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'date' => 'required|date',
+            'content' => 'required|string',
+            'image' => 'nullable|url'
+        ]);
+
+        $data = $request->all();
+
+        // controllo checkbox
+        if ( !isset($data['published']) ) {
+            $data['published'] = false;
+        } else {
+            $data['published'] = true;
+        }
+        // imposto lo slug partendo dal title
+        $data['slug'] = Str::slug($data['title'], '-');
+
+        Post::create($data);
+
+        // redirect
+        return redirect()->route('admin.posts.index');
     }
 
     /**
