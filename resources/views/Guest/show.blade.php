@@ -21,8 +21,8 @@
 				</li>
 			@endforeach
 		</ul>
-        <a href="{{route('guest.posts.index')}}">Torna alla Home</a>
 	</div>
 	@endif
+    <a href="{{route('guest.posts.index')}}">Torna alla Home</a>
 </div>
 @endsection
