@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'BlogController@index');
+Route::get('/posts/{slug}', 'BlogController@show')->name('guest.posts.show');
 
 Auth::routes();
 
