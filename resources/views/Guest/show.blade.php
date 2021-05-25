@@ -9,7 +9,7 @@
 	<h1>{{$post->title}}</h1>
 	<h4>{{$post->date}}</h4>
 	<p>{{$post->content}}</p>
-
+    {{-- controllo in caso di non commenti il div non appare --}}
 	@if ($post->comments->isNotEmpty())
 	<div class="mt-5">
 		<h3>Commenti</h3>
