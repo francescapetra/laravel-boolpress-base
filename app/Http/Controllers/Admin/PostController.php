@@ -52,7 +52,7 @@ class PostController extends Controller
         $validation['title'] = 'required|string|max:255|unique:posts';
 
         $request->validate($this->validation);
-
+        //prendo tutti i dati
         $data = $request->all();
 
         // controllo checkbox
@@ -60,7 +60,11 @@ class PostController extends Controller
         // imposto lo slug partendo dal title
         $data['slug'] = Str::slug($data['title'], '-');
 
-        Post::create($data);
+        //creo un nuovo post
+        $newPost = Post::create($data);
+        // Post::create($data);
+        //aggiungo i tags al nuovo post
+        $newPost->tags()->attach($data['tags']);
 
         // redirect
         return redirect()->route('admin.posts.index');
