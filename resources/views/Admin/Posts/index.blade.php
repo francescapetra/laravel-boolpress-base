@@ -40,7 +40,7 @@
 				<form action="{{route('admin.posts.destroy', [ 'post' => $post->id ])}}" method="POST">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+					<button type="submit" class="btn btn-danger mt-2"><i class="fas fa-trash"></i></button>
 				</form>
 			</td>
 		</tr>
