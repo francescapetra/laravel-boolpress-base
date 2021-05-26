@@ -90,7 +90,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $tags = Tag::all();
-        
+
         return view('admin.posts.edit', compact('post', 'tags'));
     }
 
@@ -109,6 +109,8 @@ class PostController extends Controller
         $validation['title'] = 'required|string|max:255|unique:posts,title,' . $post->id;
 
         $request->validate($validation);
+
+        $data = $request->all();
 
         // controllo checkbox
         $data['published'] = !isset($data['published']) ? 0 : 1;
