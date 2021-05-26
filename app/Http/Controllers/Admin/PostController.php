@@ -107,6 +107,12 @@ class PostController extends Controller
         $validation['title'] = 'required|string|max:255|unique:posts,title,' . $post->id;
 
         $request->validate($validation);
+
+        // controllo checkbox
+        $data['published'] = !isset($data['published']) ? 0 : 1;
+        // imposto lo slug partendo dal title
+        $data['slug'] = Str::slug($data['title'], '-');
+
     }
 
     /**
