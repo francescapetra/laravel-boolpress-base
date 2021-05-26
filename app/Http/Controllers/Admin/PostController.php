@@ -17,7 +17,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        dd($posts);
+        
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -71,7 +72,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        dd($post->comments);
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
