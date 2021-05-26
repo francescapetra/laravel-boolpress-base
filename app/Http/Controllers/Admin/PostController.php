@@ -41,7 +41,7 @@ class PostController extends Controller
     {
         //validazione
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique',
             'date' => 'required|date',
             'content' => 'required|string',
             'image' => 'nullable|url'
@@ -77,9 +77,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
