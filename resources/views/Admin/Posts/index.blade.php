@@ -5,6 +5,14 @@
 @endsection
 
 @section('content')
+@if (session('message'))
+    <div class="alert alert-success" style="position: fixed; bottom: 30px; right: 30px">
+        {{ session('message') }}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+    </div>
+@endif
 
 <div class="mb-3 text-right">
 	<a href="{{route('admin.posts.create')}}"><button type="button" class="btn btn-success"><i class="fas fa-plus-square"></i> Aggiungi Post</button></a>
@@ -39,12 +47,4 @@
 	@endforeach
 	</tbody>
 </table>
-@if (session('message'))
-    <div class="alert alert-success" style="position: fixed; bottom: 30px; right: 30px">
-        {{ session('message') }}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-    </div>
-@endif
 @endsection
