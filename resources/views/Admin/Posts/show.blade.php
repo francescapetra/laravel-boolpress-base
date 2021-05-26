@@ -8,9 +8,9 @@
 	<p><strong>data:</strong> {{$post->date}}</p>
 	<p><strong>stato:</strong> {{$post->published ? 'pubblicato' : 'non pubblicato'}}</p>
 	<div><strong>tags: </strong>
-		{{-- @foreach ($post->tags as $tag)
+		@foreach ($post->tags as $tag)
 			<span class="badge badge-primary">{{$tag->name}}</span>
-		@endforeach --}}
+		@endforeach
 	</div>
 	<hr>
 	<p>{{$post->content}}</p>

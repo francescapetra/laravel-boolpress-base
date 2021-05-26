@@ -89,7 +89,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $tags = Tag::all();
+        
+        return view('admin.posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -112,6 +114,15 @@ class PostController extends Controller
         $data['published'] = !isset($data['published']) ? 0 : 1;
         // imposto lo slug partendo dal title
         $data['slug'] = Str::slug($data['title'], '-');
+
+        // Update
+        $post->update($data);
+
+        // aggiorno i tags
+        $post->tags()->sync($data['tags']);
+
+        // return
+        return redirect()->route('admin.posts.show', $post);
 
     }
 
