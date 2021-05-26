@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    protected $validation = [
+        'date' => 'required|date',
+        'content' => 'required|string',
+        'image' => 'nullable|url'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +45,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //validazione
-        $request->validate([
-            'title' => 'required|string|max:255|unique',
-            'date' => 'required|date',
-            'content' => 'required|string',
-            'image' => 'nullable|url'
-        ]);
+        $validation = $this->validation;
+        $validation['title'] = 'required|string|max:255|unique:posts';
+
+        $request->validate($this->validation);
 
         $data = $request->all();
 
@@ -89,9 +92,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        
+        // validation
+        $validation = $this->validation;
+        $validation['title'] = 'required|string|max:255|unique:posts,title,' . $post->id;
+
+        $request->validate($validation);
     }
 
     /**
