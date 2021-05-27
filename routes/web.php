@@ -13,21 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'BlogController@index')->name('guest.posts.index');;
-Route::get('/posts/{slug}', 'BlogController@show')->name('guest.posts.show');
+Route::get('/', 'BlogController@index')->name('guest.posts.index');
+Route::get('posts/{slug}', 'BlogController@show')->name('guest.posts.show');
 Route::get('tags/{slug}', 'BlogController@filterTag')->name('guest.posts.filter-tag');
 
-Auth::routes();
+// Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::prefix('admin')->name('admin.')->group(function () {
 //     Route::resource('posts', 'PostController');
 // });
+Route::post('posts/{post}/add-comment', 'BlogController@addComment')->name('guest.posts.add-comment');
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
     Route::resource('posts', 'PostController');
     Route::delete('comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
 });
-
-Route::post('posts/{post}/add-comment', 'BlogController@addComment')->name('guest.posts.add-comment');
