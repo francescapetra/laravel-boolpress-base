@@ -51,6 +51,9 @@ class BlogController extends Controller
         $tags = Tag::all();
         //selezioni con lo slug
         $tag = Tag::where('slug', $slug)->first();
+        if ($tag == null) {
+            abort(404);
+        }
         //solo i tag dei pubblicati
         $posts = $tag->posts()->where('published', 1)->get();
         // restituisco la pagina home prendendo i post e i tag
