@@ -7,13 +7,14 @@ use App\Post;
 use App\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
     protected $validation = [
         'date' => 'required|date',
         'content' => 'required|string',
-        'image' => 'nullable|url'
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ];
     /**
      * Display a listing of the resource.
@@ -66,6 +67,10 @@ class PostController extends Controller
         // aggiungo i tags
         if (isset($data['tags'])) {
             $newPost->tags()->attach($data['tags']);
+        }
+        // upload file image
+        if (isset($data['image'])) {
+            $data['image'] = Storage::disk('public')->put('images', $data['image']);
         }
 
         // redirect
@@ -127,6 +132,10 @@ class PostController extends Controller
             $data['tags'] = [];
         }
         $post->tags()->sync($data['tags']);
+        // upload file image
+        if (isset($data['image'])) {
+            $data['image'] = Storage::disk('public')->put('images', $data['image']);
+        }
 
         // return
         return redirect()->route('admin.posts.show', $post);
