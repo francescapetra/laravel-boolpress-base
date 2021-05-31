@@ -16,7 +16,7 @@
     </div>
 @endif
 
-<form action="{{route('admin.posts.store')}}" method="POST">
+<form action="{{route('user.posts.store')}}" method="POST" enctype="multipart/form-data">
 	@csrf
 	@method('POST')
 	<div class="form-group">
@@ -32,9 +32,10 @@
 		<textarea class="form-control"  name="content" id="content" cols="30" rows="10" placeholder="content"></textarea>
 	</div>
 	<div class="form-group">
-		<label for="image">Immagine</label>
-		<input type="text" class="form-control" id="image" name="image" placeholder="Image">
-	</div>
+			<label for="image">Immagine</label>
+			{{-- <input type="text" class="form-control" id="image" name="image" placeholder="Image"> --}}
+			<input type="file" id="image" name="image">
+		</div>
 	<div class="form-check form-check-inline">
 		<input class="form-check-input" type="checkbox" id="published" name="published">
 		<label class="form-check-label" for="published">Pubblicato</label>
