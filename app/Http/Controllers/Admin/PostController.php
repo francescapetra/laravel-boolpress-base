@@ -14,7 +14,7 @@ class PostController extends Controller
     protected $validation = [
         'date' => 'required|date',
         'content' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ];
     /**
      * Display a listing of the resource.
@@ -71,6 +71,10 @@ class PostController extends Controller
         // upload file image
         if (isset($data['image'])) {
             $data['image'] = Storage::disk('public')->put('images', $data['image']);
+            
+            $newPost->image = $data['image'];
+
+            $newPost->save();
         }
 
         // redirect
@@ -114,7 +118,7 @@ class PostController extends Controller
         // validation
         $validation = $this->validation;
         $validation['title'] = 'required|string|max:255|unique:posts,title,' . $post->id;
-
+        // dd($request->all());
         $request->validate($validation);
 
         $data = $request->all();
@@ -135,6 +139,10 @@ class PostController extends Controller
         // upload file image
         if (isset($data['image'])) {
             $data['image'] = Storage::disk('public')->put('images', $data['image']);
+
+            $post->image = $data['image'];
+
+            $post->save();
         }
 
         // return
