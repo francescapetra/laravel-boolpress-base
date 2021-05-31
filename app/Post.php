@@ -8,12 +8,18 @@ class Post extends Model
 {
     protected $guarded = ['tags'];
 
-    public function comments(){
-        
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function comments()
+    {
         return $this->hasMany('App\Comment');
     }
-    public function tags(){
-        
+
+    public function tags()
+    {
         return $this->belongsToMany('App\Tag');
     }
 }
